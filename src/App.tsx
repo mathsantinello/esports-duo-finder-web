@@ -2,13 +2,12 @@ import './styles/main.css';
 import logo from './assets/Logo.png';
 import { GameBanner } from './components/GameBanner';
 import { CreateAdBanner } from './components/CreateAdBanner';
-import { CreateAdModal } from './components/CreateAdModal';
+import CreateAdModal from './components/CreateAdModal';
 import { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import axios from 'axios';
 
-
-interface Game {
+export interface GameProps {
   id: string,
   title: string,
   bannerUrl: string,
@@ -18,7 +17,7 @@ interface Game {
 }
 
 function App() {
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<GameProps[]>([]);
 
   useEffect(() => {
     axios('http://localhost:3333/games').then(response => {
@@ -47,7 +46,7 @@ function App() {
       </div>
       <Dialog.Root>
         <CreateAdBanner />
-        <CreateAdModal />
+        <CreateAdModal games={games} />
       </Dialog.Root>
     </div>
   )

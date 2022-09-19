@@ -4,27 +4,24 @@ import { Check, GameController } from 'phosphor-react';
 import * as Checkbox from '@radix-ui/react-checkbox'
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import { useState, useEffect, FormEvent } from 'react'
+import { GameProps } from '../App'
 import axios from 'axios';
 
-interface Game {
-    id: string,
-    title: string,
-    bannerUrl: string,
-    _count: {
-        ads: number
-    },
+interface GameListProps {
+    games: GameProps[],
 }
+
 //melhor a passagem de games para esse componente. Passar do App para cá como props. Verificar como fazer isso depois
-export function CreateAdModal() {
-    const [games, setGames] = useState<Game[]>([]);
+export default function CreateAdModal({ games, ...rest }: GameListProps) {
+    //const [games, setGames] = useState<GameProps[]>([]);
     const [weekDays, setWeekDays] = useState<string[]>([])
     const [useVoiceChannel, setUseVoiceChannel] = useState<boolean>(false)
 
-    useEffect(() => {
-        axios('http://localhost:3333/games').then(response => {
-            setGames(response.data);
-        })
-    }, []);
+    // useEffect(() => {
+    //     axios('http://localhost:3333/games').then(response => {
+    //         setGames(response.data);
+    //     })
+    // }, []);
 
     async function handleCreateAd(event: FormEvent) {
         event.preventDefault()
